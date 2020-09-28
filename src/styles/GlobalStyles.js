@@ -45,6 +45,7 @@ export default createGlobalStyle`
     --white: #FFFFFF;
     --black: #000000;
     --grey: #AAAAAA;
+    --greyLight: #FAFAFA;
     --greyVariant: #767676;
     
     --link: #61B874;

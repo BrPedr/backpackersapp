@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import Button from "../Button";
 import { setCurrentUser } from "../../redux/user";
+import { auth } from "../../firebase/firebase.utils";
 
 import {
   Container,
@@ -14,7 +15,11 @@ import {
 } from "./styles";
 
 const NavBar = ({ user, setCurrentUser }) => {
-  const handleClick = () => setCurrentUser(null);
+  const handleClick = async () => {
+    await auth.signOut();
+    
+    auth.onAuthStateChanged(setCurrentUser);
+  };
 
   return (
     <Container>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import { auth } from "../../firebase/firebase.utils";
 import { setCurrentUser } from "../../redux/user";
@@ -17,7 +18,6 @@ import {
 
 const Form = ({
   formTitle,
-  buttonGoogleText,
   buttonText,
   bottomText,
   url,
@@ -26,28 +26,23 @@ const Form = ({
   handleChange,
   handleSubmit,
   setCurrentUser,
+  user,
   ...inputProps
 }) => {
   const { email, password, confirmPassword } = inputProps;
 
   const handleClick = async () => {
-   await signInWithGoogle();
+    await signInWithGoogle();
 
-    const user = () => {
-      if (!auth.currentUser) {
-        return;
-      }
-      setCurrentUser(auth.currentUser);
-    }
-
-    user()
+    auth.onAuthStateChanged(setCurrentUser);
   };
 
-  return (
+  return (<>
+    {!user.currentUser ? null : <Redirect to={`/user/${user.currentUser.uid}`} />}
     <StyledForm method="post" onSubmit={(event) => handleSubmit(event)}>
       <h2>{formTitle}</h2>
       <FormButton color="black" onClick={() => handleClick()}>
-        {buttonGoogleText}
+        Log in with Google
       </FormButton>
       <div>
         <Divider></Divider>
@@ -103,7 +98,7 @@ const Form = ({
           {linkText}
         </Link>
       </h3>
-    </StyledForm>
+    </StyledForm></>
   );
 };
 
