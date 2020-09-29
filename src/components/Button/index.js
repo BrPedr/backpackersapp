@@ -9,7 +9,6 @@ const Button = ({
   history,
   match,
   linkUrl,
-  handleClick,
 }) => {
   const hasHistory = () => {
     if (linkUrl) {

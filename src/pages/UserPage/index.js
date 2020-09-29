@@ -1,6 +1,8 @@
 import React from "react";
 
 import SideBar from "../../components/SideBar";
+import TravelCard from "../../components/TravelCard";
+import Profile from "../../components/Profile";
 
 import {
   Grid,
@@ -19,23 +21,22 @@ import {
   Card,
 } from "./styles";
 
-const UserPage = () => {
+const UserPage = ({ history }) => {
+  console.log(history);
   return (
     <Grid>
       <SideBar />
       <HeaderMenu>
         <StyledMdSearch />
-        <UserPhotoContainer>
-          <img
-            src="https://i.pinimg.com/736x/d6/a9/57/d6a957f1d8045c9c973c12bf5968326f.jpg"
-            alt=""
-          />
-        </UserPhotoContainer>
+        <Profile />
         <StyledMdMenu />
       </HeaderMenu>
       <HorizontalDivider />
       <HeaderTitle>Backpackers</HeaderTitle>
       <HeaderColumn></HeaderColumn>
+      <TravelColumn>
+        <TravelCard />
+      </TravelColumn>
       <ColumnsContainer></ColumnsContainer>
     </Grid>
   );

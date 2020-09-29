@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
 import {
   MdHome,
@@ -10,11 +11,11 @@ import {
 
 import { SideBarHome, SideBarMenu, IconContainer } from "./styles";
 
-const SideBar = () => {
+const SideBar = ({ history }) => {
   return (
     <>
       <SideBarHome>
-        <IconContainer>
+        <IconContainer onClick={() => history.push("/")}>
           <MdHome fill="var(--white)" />
         </IconContainer>
       </SideBarHome>
@@ -36,4 +37,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default withRouter(SideBar);

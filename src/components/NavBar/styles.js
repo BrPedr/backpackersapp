@@ -14,7 +14,8 @@ export const ButtonsContainer = styled.div`
   display: flex;
   flex-basis: 263px;
   flex-direction: row;
-  justify-content: ${props => props.hidden ? "flex-end" : "space-between"};
+  align-items: center;
+  justify-content: space-between;
 
   @media (max-width: 1000px) {
     display: none;

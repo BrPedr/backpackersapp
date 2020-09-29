@@ -15,11 +15,11 @@ export const Grid = styled.div`
   display: grid;
 
   grid-template-columns: 81px repeat(4, 1fr);
-  grid-template-rows: 81px 1px 82px 940px;
+  grid-template-rows: 71px 1px 82px 1fr;
 
   grid-template-areas:
     "SH  HT . . HM" "HD HD HD HD HD"
-    "SM HC HC HC HC" "SM CC CC CC CC";
+    "SM HC HC HC HC" "SM TC CC CC CC";
 
   width: 100%;
   height: 100%;
@@ -101,7 +101,16 @@ export const HeaderColumn = styled.div`
   background: #8b83f0;
 `;
 
-export const TravelColumn = styled.div``;
+export const TravelColumn = styled.div`
+  grid-area: TC;
+
+  background: #d8e1ef;
+
+  padding-top: 20px;
+
+  display: flex;
+  justify-content: center;
+`;
 
 export const DocumentsColumn = styled.div``;
 

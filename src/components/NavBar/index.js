@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Button from "../Button";
+import Profile from "../Profile"
 import { setCurrentUser } from "../../redux/user";
 import { auth } from "../../firebase/firebase.utils";
 
@@ -41,6 +42,7 @@ const NavBar = ({ user, setCurrentUser }) => {
         <Button hidden={!user ? null : "hidden"} linkUrl="register">
           Register
         </Button>
+        <Profile />
         <SignOutButton
           hidden={!user ? "hidden" : null}
           onClick={() => handleClick()}
