@@ -10,9 +10,10 @@ const Profile = ({ history, user }) => {
       return;
     }
 
+    // history.push(`/user/${user.displayName.toLowerCase().replace(/\s/g, ".")}`);
     history.push(`/user/${user.uid}`);
   };
-
+  
   return (
     <>
       {!user ? null : (

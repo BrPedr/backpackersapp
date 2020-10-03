@@ -1,43 +1,19 @@
 import React from "react";
 
 import SideBar from "../../components/SideBar";
-import TravelCard from "../../components/TravelCard";
-import Profile from "../../components/Profile";
+import UserPageHeader from "../../components/UserPageHeader";
+import Board from "../../components/Board";
 
 import {
   Grid,
-  HorizontalDivider,
-  HeaderTitle,
-  HeaderMenu,
-  StyledMdSearch,
-  StyledMdMenu,
-  UserPhotoContainer,
-  HeaderColumn,
-  ColumnsContainer,
-  TravelColumn,
-  DocumentsColumn,
-  OrganizerColumn,
-  ArchivedColumn,
-  Card,
 } from "./styles";
 
-const UserPage = ({ history }) => {
-  console.log(history);
+const UserPage = () => {
   return (
     <Grid>
       <SideBar />
-      <HeaderMenu>
-        <StyledMdSearch />
-        <Profile />
-        <StyledMdMenu />
-      </HeaderMenu>
-      <HorizontalDivider />
-      <HeaderTitle>Backpackers</HeaderTitle>
-      <HeaderColumn></HeaderColumn>
-      <TravelColumn>
-        <TravelCard />
-      </TravelColumn>
-      <ColumnsContainer></ColumnsContainer>
+      <UserPageHeader />
+      <Board />
     </Grid>
   );
 };

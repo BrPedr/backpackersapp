@@ -37,68 +37,74 @@ const Form = ({
     auth.onAuthStateChanged(setCurrentUser);
   };
 
-  return (<>
-    {!user.currentUser ? null : <Redirect to={`/user/${user.currentUser.uid}`} />}
-    <StyledForm method="post" onSubmit={(event) => handleSubmit(event)}>
-      <h2>{formTitle}</h2>
-      <FormButton color="black" onClick={() => handleClick()}>
-        Log in with Google
-      </FormButton>
-      <div>
-        <Divider></Divider>
-        <h3>or</h3>
-        <Divider></Divider>
-      </div>
-      <StyledInput
-        type="email"
-        name="email"
-        placeholder="Email"
-        label="Email"
-        value={email}
-        onChange={(event) => handleChange(event)}
-        required
-      />
-      <StyledInput
-        type="password"
-        name="password"
-        placeholder="Password"
-        label="Password"
-        value={password}
-        onChange={(event) => handleChange(event)}
-        required
-      />
-      {hasConfirmPassword ? (
+  return (
+    <>
+      {!user.currentUser ? null : (
+        <Redirect
+          to={`/user/${user.currentUser.uid}`}
+        />
+      )}
+      <StyledForm method="post" onSubmit={(event) => handleSubmit(event)}>
+        <h2>{formTitle}</h2>
+        <FormButton color="black" onClick={() => handleClick()}>
+          Log in with Google
+        </FormButton>
+        <div>
+          <Divider></Divider>
+          <h3>or</h3>
+          <Divider></Divider>
+        </div>
         <StyledInput
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          label="Confirm Password"
-          value={confirmPassword}
+          type="email"
+          name="email"
+          placeholder="Email"
+          label="Email"
+          value={email}
           onChange={(event) => handleChange(event)}
           required
-          style={{ marginBottom: "1em" }}
         />
-      ) : null}
-      {hasConfirmPassword ? null : (
-        <div>
-          <Checkbox type="checkbox" />
-          <h3 className="checkBoxText">Keep me logged in</h3>
-          <Link to="#" className="link">
-            Forgot password
+        <StyledInput
+          type="password"
+          name="password"
+          placeholder="Password"
+          label="Password"
+          value={password}
+          onChange={(event) => handleChange(event)}
+          required
+        />
+        {hasConfirmPassword ? (
+          <StyledInput
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            label="Confirm Password"
+            value={confirmPassword}
+            onChange={(event) => handleChange(event)}
+            required
+            style={{ marginBottom: "1em" }}
+          />
+        ) : null}
+        {hasConfirmPassword ? null : (
+          <div>
+            <Checkbox type="checkbox" />
+            <h3 className="checkBoxText">Keep me logged in</h3>
+            <Link to="#" className="link">
+              Forgot password
+            </Link>
+          </div>
+        )}
+        <FormButton type="submit" color={"var(--white)"}>
+          {buttonText}
+        </FormButton>
+        <Divider />
+        <h3>
+          {bottomText}
+          <Link to={url} className="link">
+            {linkText}
           </Link>
-        </div>
-      )}
-      <FormButton type="submit" color={"var(--white)"}>
-        {buttonText}
-      </FormButton>
-      <Divider />
-      <h3>
-        {bottomText}
-        <Link to={url} className="link">
-          {linkText}
-        </Link>
-      </h3>
-    </StyledForm></>
+        </h3>
+      </StyledForm>
+    </>
   );
 };
 

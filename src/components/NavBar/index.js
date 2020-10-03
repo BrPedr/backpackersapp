@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Button from "../Button";
-import Profile from "../Profile"
+import Profile from "../Profile";
 import { setCurrentUser } from "../../redux/user";
 import { auth } from "../../firebase/firebase.utils";
 
@@ -18,7 +18,7 @@ import {
 const NavBar = ({ user, setCurrentUser }) => {
   const handleClick = async () => {
     await auth.signOut();
-    
+
     auth.onAuthStateChanged(setCurrentUser);
   };
 

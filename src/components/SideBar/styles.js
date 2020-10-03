@@ -25,8 +25,8 @@ export const SideBarMenu = styled.aside`
 `;
 
 export const IconContainer = styled.div`
-  width: 50px;
-  height: 45px;
+  width: 35px;
+  height: 33px;
 
   background: #8c5cf2;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
