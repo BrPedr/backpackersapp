@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 import CardsListModal from "../CardsListModal";
 import TravelCardModal from "../TravelCardModal";
@@ -11,12 +11,13 @@ const MODAL_COMPONENTS = {
   TRAVEL_CARD: TravelCardModal,
 };
 
-const ModalRoot = ({ modalType }) => {
+const ModalRoot = () => {
+  const modalType = useSelector(state => state.modals[0])
   if (!modalType) {
     return null;
   }
 
-  const CurrentModal = MODAL_COMPONENTS[modalType.modalType];
+  const CurrentModal = MODAL_COMPONENTS[modalType];
 
   return (
     <Container>
@@ -25,8 +26,4 @@ const ModalRoot = ({ modalType }) => {
   );
 };
 
-const mapStateToProps = ( state ) => ({
-  modalType: state.modal,
-});
-
-export default connect(mapStateToProps)(ModalRoot);
+export default ModalRoot;

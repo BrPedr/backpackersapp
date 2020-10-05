@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { hideModal } from "../../redux/modal";
-import { createCardsList } from "../../redux/card";
+import { createCardsList } from "../../redux/cards/cardsSlice";
+import { hideModal } from "../../redux/modals/modalsSlice";
 
 import { Container } from "./styles";
 
-const CardsListModal = ({ hideModal, createCardsList }) => {
+const CardsListModal = () => {
   const [cardListTitle, setCardListTitle] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault(event);
-    
-    createCardsList(cardListTitle);
-    hideModal()
+
+    dispatch(createCardsList(cardListTitle));
+    dispatch(hideModal());
   };
 
   const handleChange = (event) => {
@@ -37,16 +38,9 @@ const CardsListModal = ({ hideModal, createCardsList }) => {
         />
         <button type="submit">Submit</button>
       </div>
-      <button onClick={() => hideModal()}>Close me</button>
+      <button onClick={() => dispatch(hideModal())}>Close me</button>
     </Container>
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  state,
-  ownProps,
-});
-
-export default connect(mapStateToProps, { hideModal, createCardsList })(
-  CardsListModal
-);
+export default CardsListModal;
