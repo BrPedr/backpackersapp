@@ -20,10 +20,13 @@ export const Grid = styled.div`
   height: 100%;
 
   .react-icons {
-    stroke: var(--greyVariant);
     margin: 1em 0;
+
+    stroke: var(--greyVariant);
     stroke-width: 1.5;
     fill: white;
+
+    cursor: pointer;
 
     &:hover {
       opacity: 0.7;

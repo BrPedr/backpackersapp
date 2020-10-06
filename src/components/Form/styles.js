@@ -91,9 +91,9 @@ export const StyledInput = styled.input`
   background-color: rgba(255, 184, 184, 0.4);
   border-radius: 15px;
 
-  ::placeholder {
+  /* ::placeholder {
     left: 10em;
-  }
+  } */
 
   &:hover, :focus {
     background-color: rgba(255, 184, 184, 0.2);

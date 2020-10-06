@@ -22,6 +22,18 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
 
+    .react-icons {
+      margin: 1em 0;
+
+      stroke: var(--greyVariant);
+      stroke-width: 1.5;
+      fill: white;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
     hr {
       width: 100%;
       border: 1px solid var(--greyLight);
@@ -40,7 +52,7 @@ export const Menu = styled.aside`
   align-items: center;
 `;
 
-export const IconContainer = styled.div`
+export const IconContainer = styled.button`
   width: 52px;
   height: 52px;
 

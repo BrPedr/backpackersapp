@@ -20,7 +20,7 @@ import Profile from "../../components/Profile";
 const Header = () => {
   return (
     <Container>
-      <div >
+      <div>
         <h1>Backpackers</h1>
         <div className="nav-icons">
           <MdSearch
@@ -39,10 +39,12 @@ const Header = () => {
       <div className="nav-bottom">
         <div>
           <h3>Visualize in boxes</h3>
-          <MdKeyboardArrowDown />
+          <MdKeyboardArrowDown size="24" />
         </div>
-        <div className="nav-icons">
-          <IconContext.Provider value={{ className: "react-icons", size:"24", }}>
+        <div className="nav-icons-bottom">
+          <IconContext.Provider
+            value={{ className: "react-icons", size: "24" }}
+          >
             <MdForum />
             <MdConfirmationNumber />
             <MdNotificationsActive />
