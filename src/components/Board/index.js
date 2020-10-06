@@ -20,7 +20,7 @@ const Board = () => {
       {/* {lists.map((list) => (
         <CardsList key={list.title} data={list} />
       ))} */}
-      {!cardsList.length
+      {!cardsList
         ? null
         : cardsList.map((list, index) => (
             <CardsList title={`${list}`} key={index} index={index} />

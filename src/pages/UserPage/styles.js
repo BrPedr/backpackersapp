@@ -1,38 +1,34 @@
 import styled from "styled-components";
 
-// SH = SIDEBAR HOME
+// SB = SIDEBAR
 // UH = USER HEADER
 // BD = BOARD
 // SM = SIDEBAR MENU
-// HT = HEADER TITLE
-// HM = HEADER MENU
-// CC = COLUMNS CONTAINER
-// HC = HEADER COLUMN
 
 export const Grid = styled.div`
   display: grid;
 
-  grid-template-columns: 56px repeat(4, 1fr);
-  grid-template-rows: 71px auto;
+  grid-template-columns: 70px repeat(4, 1fr);
+  grid-template-rows: 154px auto 71px;
 
   grid-template-areas:
-    "SH UH UH UH UH"
-    "SM BD BD BD BD";
+    "SB UH UH UH UH"
+    "SB BD BD BD BD"
+    "SB BD BD BD BD";
 
   width: 100%;
   height: 100%;
-`;
 
-export const ColumnsContainer = styled.div`
-  grid-area: CC;
+  .react-icons {
+    stroke: var(--greyVariant);
+    margin: 1em 0;
+    stroke-width: 1.5;
+    fill: white;
 
-  background: #d8e1ef;
-`;
-
-export const HeaderColumn = styled.div`
-  grid-area: HC;
-
-  background: #8b83f0;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 `;
 
 export const TravelColumn = styled.div`

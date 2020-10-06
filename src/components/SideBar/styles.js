@@ -1,34 +1,50 @@
 import styled from "styled-components";
 
-export const SideBarHome = styled.aside`
-  grid-area: SH;
+export const Container = styled.div`
+  grid-area: SB;
 
-  display: flex;
-
-  align-items: center;
-  justify-content: space-around;
+  background: ${(props) => props.color};
 
   border-right: 2px solid;
-  border-color: var(--greyLight );
+  border-color: var(--greyLight);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .help-center {
+    width: 100%;
+    min-height: 150px;
+    margin-top: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    hr {
+      width: 100%;
+      border: 1px solid var(--greyLight);
+    }
+
+    h4 {
+      color: var(--greyVariant);
+    }
+  }
 `;
 
-export const SideBarMenu = styled.aside`
-  grid-area: SM;
-
+export const Menu = styled.aside`
   display: flex;
 
   flex-direction: column;
   align-items: center;
-
-  border-right: 2px solid;
-  border-color: var(--greyLight);
 `;
 
 export const IconContainer = styled.div`
-  width: 35px;
-  height: 33px;
+  width: 52px;
+  height: 52px;
 
-  background: #8c5cf2;
+  background: ${(props) => props.color};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
 

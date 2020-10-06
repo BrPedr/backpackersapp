@@ -1,39 +1,43 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-import {
-  MdHome,
-  MdDelete,
-  MdShare,
-  MdPlace,
-  MdNotifications,
-} from "react-icons/md";
+import { MdHome, MdHelp, MdMessage } from "react-icons/md";
 
-import { SideBarHome, SideBarMenu, IconContainer } from "./styles";
+import { Container, Menu, IconContainer } from "./styles";
 
-const SideBar = ({ history }) => {
+const SideBar = ({ history, children, color }) => {
   return (
-    <>
-      <SideBarHome>
-        <IconContainer onClick={() => history.push("/")}>
-          <MdHome fill="var(--white)" />
-        </IconContainer>
-      </SideBarHome>
-      <SideBarMenu>
-        <IconContainer>
-          <MdDelete fill="var(--white)" />
-        </IconContainer>
-        <IconContainer>
-          <MdShare fill="var(--white)" />
-        </IconContainer>
-        <IconContainer>
-          <MdPlace fill="var(--white)" />
-        </IconContainer>
-        <IconContainer>
-          <MdNotifications fill="var(--white)" />
-        </IconContainer>
-      </SideBarMenu>
-    </>
+    <Container color={color}>
+      <IconContainer
+        onClick={() => history.push("/")}
+        style={{ margin: "3em 0 5em 0" }}
+      >
+        <MdHome
+          stroke-width="1.5"
+          stroke="var(--greyVariant)"
+          fill="white"
+          size={22}
+        />
+      </IconContainer>
+      <Menu>{children}</Menu>
+      <div className="help-center">
+        <hr />
+        <h4>Help</h4>
+        <MdHelp
+          stroke-width="1.5"
+          stroke="var(--greyVariant)"
+          fill="white"
+          size={22}
+        />
+        <MdMessage
+          stroke-width="1.5"
+          stroke="var(--greyVariant)"
+          fill="white"
+          size={22}
+          style={{ marginBottom: "1.5em" }}
+        />
+      </div>
+    </Container>
   );
 };
 
