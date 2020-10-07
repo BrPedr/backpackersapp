@@ -5,16 +5,17 @@ import { StyledButton } from "../Button/styles";
 export const Container = styled.div`
   position: fixed;
 
+  width: 500px;
+  height: 200px;
+
+  margin: -100px 0 0 -250px;
+  top: 50%;
+  left: 50%;
+
   border: 3px solid white;
 
   display: flex;
   justify-content: space-between;
-
-  width: 500px;
-  height: 200px;
-
-  margin: 0 calc(38% - 100px);
-  top: 15%;
 
   background: white;
 

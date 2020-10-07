@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { createCardsList } from "../../redux/cards/cardsSlice";
 import { hideModal } from "../../redux/modals/modalsSlice";
@@ -7,13 +7,14 @@ import { hideModal } from "../../redux/modals/modalsSlice";
 import { Container, Button } from "./styles";
 
 const CardsListModal = () => {
-  const [cardListPlace, setCardListPlace] = useState("");
+  const [location, setlocation] = useState("");
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.currentUser.uid);
 
   const handleSubmit = async (event) => {
     event.preventDefault(event);
 
-    dispatch(createCardsList(cardListPlace));
+    dispatch(createCardsList(userId, location));
     dispatch(hideModal());
   };
 
@@ -21,7 +22,7 @@ const CardsListModal = () => {
     const { name, value } = event.target;
 
     if (name === "place") {
-      setCardListPlace(value);
+      setlocation(value);
     }
   };
 
@@ -34,10 +35,21 @@ const CardsListModal = () => {
           name="place"
           placeholder="Type the name of the place"
           onChange={(event) => handleChange(event)}
-          value={cardListPlace}
+          value={location}
         />
-        <Button onClick={() => dispatch(hideModal())}>Cancel</Button>
-        <Button color="green" type="submit" style={{ marginLeft: "1em" }}>
+        <Button
+          type="reset"
+          value="Reset"
+          onClick={() => dispatch(hideModal())}
+        >
+          Cancel
+        </Button>
+        <Button
+          color="green"
+          type="submit"
+          value="Submit"
+          style={{ marginLeft: "1em" }}
+        >
           Create
         </Button>
       </form>

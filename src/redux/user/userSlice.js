@@ -1,13 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
 
-const initialState = [{ user: null }];
+const initialState = [{ currentUser: null }];
+
+export const fetchUser = createAsyncThunk(currentUser, async () => {
+  const response = await signInWithGoogle();
+
+  return auth.onAuthStateChanged(currentUser);
+});
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     setCurrentUser: (state, action) => {
-      state.user(action.payload);
+      state.currentUser = action.payload;
     },
   },
 });

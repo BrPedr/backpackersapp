@@ -11,7 +11,6 @@ import UserPage from "./pages/UserPage";
 import "./components/ModalRoot/index";
 
 import GlobalStyles from "./styles/GlobalStyles";
-import ModalRoot from "./components/ModalRoot/index";
 
 function App() {
   return (
@@ -25,7 +24,6 @@ function App() {
         </Switch>
         <GlobalStyles />
       </DndProvider>
-      <ModalRoot />
     </>
   );
 }

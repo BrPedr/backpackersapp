@@ -28,7 +28,7 @@ export const Container = styled.div`
     padding: 30px 0 0 30px;
 
     & div:first-child {
-      width: 180px;
+      width: 230px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -39,6 +39,7 @@ export const Container = styled.div`
       font-style: normal;
       font-weight: bold;
       font-size: 18px;
+      font-family: "Comfortaa", sans-serif;
     }
 
     .react-icons {

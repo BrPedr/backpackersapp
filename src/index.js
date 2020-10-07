@@ -7,12 +7,14 @@ import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./redux/store";
 
 import App from "./App";
+import ModalRoot from "./components/ModalRoot/index";
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <PersistGate persistor={persistor}>
         <App />
+        <ModalRoot />
       </PersistGate>
     </BrowserRouter>
   </Provider>,
