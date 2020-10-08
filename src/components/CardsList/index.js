@@ -9,7 +9,7 @@ import { deleteCardsList, getCurrentCard } from "../../redux/cards/cardsSlice";
 // import TravelCard from "../TravelCard";
 
 import { Container } from "./styles";
-import CardsListModal from "../CardsListModal";
+// import CardsListModal from "../CardsListModal";
 
 const CardsList = ({ data, title, index, id }) => {
   const dispatch = useDispatch();
@@ -92,21 +92,6 @@ const CardsList = ({ data, title, index, id }) => {
           onClick={() => dispatch(deleteCardsList(index))}
         />
       </div>
-
-      {/* <header index={index}>
-        <h2>{`${title}`}</h2>
-        <div>
-          {index === 0 ? (
-            <button
-              type="button"
-              onClick={() => dispatch(showModal("TRAVEL_CARD"))}
-            >
-              <MdAdd size={24} color={"var(--white)"} />
-            </button>
-          ) : null}
-        </div>
-      </header>
-      <ul></ul> */}
     </Container>
   );
 };
