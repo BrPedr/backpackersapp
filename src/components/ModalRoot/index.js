@@ -12,7 +12,7 @@ const MODAL_COMPONENTS = {
 };
 
 const ModalRoot = () => {
-  const modalType = useSelector(state => state.modals[0])
+  const modalType = useSelector((state) => state.modals[0]);
   if (!modalType) {
     return null;
   }

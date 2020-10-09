@@ -15,7 +15,7 @@ const cardsSlice = createSlice({
       reducer(state, action) {
         state.cardsList.push(action.payload);
       },
-      prepare(userId, location, routes, adressess) {
+      prepare(userId, location, routes, adressess, calendar) {
         return {
           payload: {
             id: nanoid(),
@@ -23,6 +23,7 @@ const cardsSlice = createSlice({
             location,
             routes,
             adressess,
+            calendar: calendar,
           },
         };
       },
@@ -37,12 +38,26 @@ const cardsSlice = createSlice({
         state.currentCard.id = id;
         state.currentCard.user = hasCard.user;
         state.currentCard.location = hasCard.location;
+        state.currentCard.calendar = hasCard.calendar;
+      }
+    },
+    updateCard(state, action) {
+      const { id, fromDate, toDate } = action.payload;
+      const hasCard = state.cardsList.find((card) => card.id === id);
+      if (hasCard) {
+        hasCard.id = id;
+        hasCard.calendar = { fromDate: fromDate, toDate: toDate };
       }
     },
   },
 });
 
-export const { createCardsList, deleteCardsList, getCurrentCard } = cardsSlice.actions;
+export const {
+  createCardsList,
+  deleteCardsList,
+  getCurrentCard,
+  updateCard,
+} = cardsSlice.actions;
 
 export const selectAllCards = (state) => state.cards.cardsList;
 
