@@ -3,19 +3,25 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
-// import { showModal } from "../../redux/modals/modalsSlice";
-import { deleteCardsList, getCurrentCard } from "../../redux/cards/cardsSlice";
+import {
+  deleteCardsList,
+  getCurrentCard,
+  selectAllCards,
+} from "../../redux/cards/cardsSlice";
 
-// import TravelCard from "../TravelCard";
 
 import { Container } from "./styles";
-// import CardsListModal from "../CardsListModal";
 
-const CardsList = ({ data, title, index, id }) => {
+const CardsList = ({ title, index, id, list }) => {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.currentUser.uid);
-  const cardRef = useRef();
   const history = useHistory();
+  const userId = useSelector((state) => state.user.currentUser.uid);
+  const card = useSelector(selectAllCards);
+  const cardRef = useRef();
+
+  // console.log(list)
+
+  // const hasCard = (id) => card.find((card) => card.id === id);
 
   const handleClick = () => {
     const cardId = cardRef.current.attributes[0].nodeValue;
@@ -76,7 +82,7 @@ const CardsList = ({ data, title, index, id }) => {
           </div>
           <div>
             <div>
-              <h3>Sep, 22</h3>
+              <h3>{!list.calendar ? null : list.calendar.fromDate}</h3>
             </div>
             <h3>In 5mths</h3>
           </div>

@@ -7,10 +7,9 @@ import { selectAllCards } from "../../redux/cards/cardsSlice";
 
 import CardsList from "../CardsList";
 import EditTravel from "../EditTravel";
+import EditDocuments from "../EditDocuments";
 
 import { Container } from "./styles";
-
-// const lists = loadLists();
 
 const Board = () => {
   const cardsList = useSelector(selectAllCards);
@@ -18,9 +17,6 @@ const Board = () => {
 
   return (
     <Container>
-      {/* {lists.map((list) => (
-        <CardsList key={list.title} data={list} />
-      ))} */}
       <Switch>
         <Route exact path={`/user/${match.params.id}`}>
           {!cardsList
@@ -30,13 +26,20 @@ const Board = () => {
                   title={`${list.location}`}
                   key={list.id}
                   id={list.id}
+                  cardsList={cardsList}
                   index={index}
+                  list={list}
                 />
               ))}
         </Route>
         <Route
+          exact
           path={`${match.url}/edit-travel/:cardId`}
           component={EditTravel}
+        />
+        <Route
+          path={`${match.url}/edit-travel/:cardId/documents`}
+          component={EditDocuments}
         />
       </Switch>
     </Container>
@@ -44,32 +47,3 @@ const Board = () => {
 };
 
 export default Board;
-
-// import React from "react";
-// import { useSelector } from "react-redux";
-// // import { loadLists } from "../../services/api";
-
-// import CardsList from "../CardsList";
-
-// import { Container } from "./styles";
-
-// // const lists = loadLists();
-
-// const Board = () => {
-//   const cardsList = useSelector((state) => state.cards.cardsList);
-
-//   return (
-//     <Container>
-//       {/* {lists.map((list) => (
-//         <CardsList key={list.title} data={list} />
-//       ))} */}
-//       {!cardsList
-//         ? null
-//         : cardsList.map((list, index) => (
-//             <CardsList title={`${list}`} key={index} index={index} />
-//           ))}
-//     </Container>
-//   );
-// };
-
-// export default Board;

@@ -38,5 +38,7 @@ export const Container = styled.div`
     color: var(--white);
     font-size: 17px;
     font-family: "Montserrat", sans-serif;
+
+    cursor: pointer;
   }
 `;

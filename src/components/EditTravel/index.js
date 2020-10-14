@@ -9,12 +9,22 @@ import Calendar from "../Calendar";
 
 import { Container, Grid, FeaturesContainer } from "./styles";
 
-const EditTravel = () => {
+const EditTravel = ({ history, match }) => {
   const card = useSelector(selectCurrentCard);
+  
+  const handleClick = (feature) => {
+    history.push(`${match.url}/${feature}`);
+  };
 
   const renderFeatures = () =>
     features()[0].cards.map((feature) => (
       <FeaturesContainer
+        onClick={(event) =>
+          handleClick(
+            event.target.textContent.toLowerCase() ||
+              event.target.alt.toLowerCase()
+          )
+        }
         color={feature.color}
         area={feature.area}
         key={feature.name}
@@ -32,7 +42,9 @@ const EditTravel = () => {
         <h1>{card.location}</h1>
         <Calendar />
       </header>
-      <Grid>{renderFeatures()}</Grid>
+      <Grid>
+        {renderFeatures()}
+      </Grid>
     </Container>
   );
 };

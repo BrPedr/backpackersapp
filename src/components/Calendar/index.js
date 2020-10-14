@@ -3,15 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   selectCurrentCard,
-  getCurrentCard,
   updateCard,
+  selectAllCards,
 } from "../../redux/cards/cardsSlice";
 
 import { Container } from "./styles";
 
 const Calendar = () => {
-  const date = new Date();
+  const date = new Date("October 09, 2020");
   const currentCard = useSelector(selectCurrentCard);
+  const cards = useSelector(selectAllCards);
   const dispatch = useDispatch();
   const [fromDate, setFromDate] = useState(hasDate("fromDate"));
   const [toDate, setToDate] = useState(hasDate("toDate"));
@@ -20,22 +21,25 @@ const Calendar = () => {
     dispatch(
       updateCard({ id: currentCard.id, fromDate: fromDate, toDate: toDate })
     );
-    dispatch(
-      getCurrentCard({ id: currentCard.id, fromDate: fromDate, toDate: toDate })
-    );
-
-    return () => currentCard.calendar;
   }, [fromDate, toDate]);
 
   function hasDate(date) {
-    if (!currentCard.calendar) {
-      return "";
+    if (!currentCard) {
+      return;
     }
 
-    return currentCard.calendar[date];
+    const cardId = currentCard.id;
+    const hasCard = (id) => cards.find((card) => card.id === id);
+
+    if (!hasCard(cardId).calendar) {
+      return;
+    }
+
+    return hasCard(cardId).calendar[date];
   }
 
-  console.log(date.toISOString())
+  // console.log(date.toLocaleDateString());
+  // toDateString();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -56,7 +60,7 @@ const Calendar = () => {
           type="date"
           id="fromDate"
           name="fromDate"
-          min={date.toString()}
+          min={date.toLocaleDateString()}
           value={fromDate}
           onChange={(event) => {
             handleChange(event);
