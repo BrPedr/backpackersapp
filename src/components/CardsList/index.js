@@ -6,7 +6,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import {
   deleteCardsList,
   getCurrentCard,
-  selectAllCards,
+  // selectAllCards,
 } from "../../redux/cards/cardsSlice";
 
 
@@ -16,7 +16,7 @@ const CardsList = ({ title, index, id, list }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const userId = useSelector((state) => state.user.currentUser.uid);
-  const card = useSelector(selectAllCards);
+  // const card = useSelector(selectAllCards);
   const cardRef = useRef();
 
   // console.log(list)

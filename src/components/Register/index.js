@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { auth } from "../../firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 import Form from "../Form";
 
 const Register = () => {
