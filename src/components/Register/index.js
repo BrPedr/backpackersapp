@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { auth } from "../../firebase/firebase.utils";
 import Form from "../Form";
 
 const Register = () => {
@@ -8,9 +8,12 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
+  };
+
+  const handleClick = async () => {
     if (password !== confirmPassword) {
       alert("Passwords don't match");
       return;
@@ -25,7 +28,7 @@ const Register = () => {
     } catch (error) {
       alert(error);
     }
-  };
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -51,6 +54,7 @@ const Register = () => {
       hasConfirmPassword
       handleChange={handleChange}
       handleSubmit={handleSubmit}
+      handleClick={handleClick}
       password={password}
       email={email}
       confirmPassword={confirmPassword}

@@ -15,7 +15,7 @@ const firebaseConfig = {
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
-  
+
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
@@ -39,14 +39,36 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-firebase.initializeApp(firebaseConfig);
+export const createCardsDocument = async (userAuth, cards) => {
+  if (!userAuth || !cards.length) return;
+
+  cards.forEach(async (card) => {
+    const createdAt = new Date();
+    const cardsRef = firestore.doc(`users/${userAuth.uid}/cards/${card.id}`);
+    const snapShot = await cardsRef.get();
+
+    if (!snapShot.exists || snapShot !== card) {
+      try {
+        await cardsRef.set({
+          location: card.location,
+          calendar: "calendar",
+          createdAt,
+        });
+      } catch (error) {
+        console.log("error creating card", error.message);
+      }
+    }
+  });
+};
+
 // firebase.analytics();
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
-export const auth = firebase.auth();
-
+firebase.initializeApp(firebaseConfig);
 export const firestore = firebase.firestore();
+
+export const auth = firebase.auth();
 
 export const signInWithGoogle = () =>
   auth.signInWithPopup(provider).catch((error) => {

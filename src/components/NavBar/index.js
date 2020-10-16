@@ -22,7 +22,7 @@ const NavBar = () => {
   const handleClick = async () => {
     await auth.signOut();
 
-    auth.onAuthStateChanged(() => dispatch(setCurrentUser(null)));
+    auth.onAuthStateChanged(dispatch(setCurrentUser(null)));
   };
 
   return (

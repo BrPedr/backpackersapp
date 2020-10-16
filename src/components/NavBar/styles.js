@@ -17,9 +17,9 @@ export const ButtonsContainer = styled.div`
   align-items: center;
   justify-content: ${(props) => (props.hidden ? "flex-end" : "space-between")};
 
-  @media (max-width: 1000px) {
+  /* @media (max-width: 1000px) {
     display: none;
-  }
+  } */
 `;
 
 export const SignOutButton = styled(StyledButton)`

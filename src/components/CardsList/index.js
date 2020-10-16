@@ -8,14 +8,14 @@ import {
   getCurrentCard,
   // selectAllCards,
 } from "../../redux/cards/cardsSlice";
-
+import { selectUser } from "../../redux/user/userSlice";
 
 import { Container } from "./styles";
 
 const CardsList = ({ title, index, id, list }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const userId = useSelector((state) => state.user.currentUser.uid);
+  const userId = useSelector(selectUser);
   // const card = useSelector(selectAllCards);
   const cardRef = useRef();
 
@@ -27,7 +27,7 @@ const CardsList = ({ title, index, id, list }) => {
     const cardId = cardRef.current.attributes[0].nodeValue;
     dispatch(getCurrentCard({ id: cardId }));
 
-    history.push(`/user/${userId}/edit-travel/${cardId}`);
+    history.push(`/user/${userId.uid}/edit-travel/${cardId}`);
   };
 
   return (

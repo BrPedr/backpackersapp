@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { auth } from "../../firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 import { setCurrentUser } from "../../redux/user/userSlice";
 import Form from "../Form";
 
@@ -11,10 +11,12 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(event);
+  };
 
+  const handleClick = async () => {
     try {
-      const user = await auth.signInWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email, password);
 
       await auth.onAuthStateChanged((user) => {
         if (user) {
@@ -30,11 +32,11 @@ const SignIn = () => {
             })
           );
         }
-        return;
+
+        // createUserProfileDocument(user);
+        setEmail("");
+        setPassword("");
       });
-      
-      setEmail("");
-      setPassword("");
     } catch (error) {
       alert(error);
     }
@@ -60,6 +62,7 @@ const SignIn = () => {
       buttonText="Log in"
       handleChange={handleChange}
       handleSubmit={handleSubmit}
+      handleClick={handleClick}
       password={password}
       email={email}
     />
