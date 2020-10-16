@@ -42,23 +42,46 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 export const createCardsDocument = async (userAuth, cards) => {
   if (!userAuth || !cards.length) return;
 
+  //
+
   cards.forEach(async (card) => {
     const createdAt = new Date();
     const cardsRef = firestore.doc(`users/${userAuth.uid}/cards/${card.id}`);
     const snapShot = await cardsRef.get();
 
-    if (!snapShot.exists || snapShot !== card) {
-      try {
-        await cardsRef.set({
-          location: card.location,
-          calendar: "calendar",
-          createdAt,
-        });
-      } catch (error) {
-        console.log("error creating card", error.message);
-      }
+    try {
+      await cardsRef.set({
+        card,
+        createdAt,
+      });
+    } catch (error) {
+      console.log("error creating card", error.message);
     }
+
+    return snapShot;
   });
+
+  // return cardsRef;
+  // export const createCardsDocument = async (userAuth, cards) => {
+  //   if (!userAuth || !cards.length) return;
+
+  //   cards.forEach(async (card) => {
+  //     const createdAt = new Date();
+  //     const cardsRef = firestore.doc(`users/${userAuth.uid}/cards/${card.id}`);
+  //     const snapShot = await cardsRef.get();
+
+  //     if (!snapShot.exists) {
+  //       try {
+  //         await cardsRef.set({
+  //           card,
+  //           createdAt,
+  //         });
+  //       } catch (error) {
+  //         console.log("error creating card", error.message);
+  //       }
+  //     }
+  //   });
+  // };
 };
 
 // firebase.analytics();
