@@ -15,10 +15,10 @@ const cardsSlice = createSlice({
       reducer(state, action) {
         state.cardsList.push(action.payload);
       },
-      prepare(userId, location, routes, adressess, calendar, documents) {
+      prepare(userId, location, cardId, routes, adressess, calendar, documents) {
         return {
           payload: {
-            id: nanoid(),
+            id: cardId,
             user: userId,
             location,
             routes: "",

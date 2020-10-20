@@ -32,8 +32,6 @@ const Upload = ({ id }) => {
 
   useEffect(() => {
     dispatch(updateCardDocuments({ id, documents: uploadedFiles }));
-    const cardsCollectionRef = firestore.collection("cards")
-    cardsCollectionRef.onSnapshot(async snapshot => console.log(snapshot))
   }, [uploadedFiles, dispatch, id]);
 
   const {

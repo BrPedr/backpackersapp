@@ -10,7 +10,7 @@ import RegisterPage from "./pages/RegisterPage";
 import UserPage from "./pages/UserPage";
 import {
   createUserProfileDocument,
-  createCardsDocument,
+  createCardsDocument, firestore
 } from "./firebase/firebase.utils";
 
 import { selectUser } from "./redux/user/userSlice";
@@ -27,13 +27,40 @@ function App() {
 
   useEffect(() => {
     createUserProfileDocument(user);
+
+    // const testRef = firestore.collection("testando")
+    // testRef.doc("testandomais").set({
+    // name: "San Francisco", state: "CA", country: "USA",
+    // capital: false, population: 860000,
+    // regions: ["west_coast", "norcal"] });
+
+    if (!user && !cards) {
+      return;
+    }
+
+    const testRef = firestore.doc(`users/${user.uid}/cards/${cards[0].id}`)
+    const snap = testRef.get().then(doc => doc.data()).then(data => console.log(Object.entries(data)))
+   
+    // testRef
+    //   .get()
+    //   .then(function (doc) {
+    //     if (doc.exists) {
+    //       console.log("Document data:", doc.data());
+    //     } else {
+    //       // doc.data() will be undefined in this case
+    //       console.log("No such document!");
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log("Error getting document:", error);
+    //   });
   }, [user]);
 
-  useEffect(() => {
-    if (!cards) return;
+  // useEffect(() => {
+  //   if (!cards) return;
 
-    createCardsDocument(user, cards);
-  }, [user, cards]);
+  //   createCardsDocument(user, cards);
+  // }, [user, cards]);
 
   return (
     <>
