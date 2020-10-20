@@ -24,7 +24,7 @@ const cardsSlice = createSlice({
             routes: "",
             adressess: "",
             calendar: "",
-            documents: [],
+            documents,
           },
         };
       },

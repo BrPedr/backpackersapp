@@ -1,19 +1,39 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Dropzone, { useDropzone } from "react-dropzone";
+import { useRouteMatch } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
 import filesize from "filesize";
 import { useDispatch } from "react-redux";
 
-import { updateCardDocuments } from "../../redux/cards/cardsSlice";
+import { firestore } from "../../firebase/firebase.utils"
+
+import {
+  updateCardDocuments,
+  selectAllCards,
+} from "../../redux/cards/cardsSlice";
 
 import { DropContainer, UploadMessage } from "./styles";
 
-const Upload = ({ hasCard, id }) => {
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+const Upload = ({ id }) => {
+  const match = useRouteMatch();
+  const cards = useSelector(selectAllCards);
+  const card = cards.find((id) => id.id === match.params.cardId);
+  const [uploadedFiles, setUploadedFiles] = useState(hasCard(card));
   const dispatch = useDispatch();
+
+  function hasCard(card) {
+    if (!card.documents) {
+      return [];
+    }
+
+    return card.documents;
+  }
 
   useEffect(() => {
     dispatch(updateCardDocuments({ id, documents: uploadedFiles }));
+    const cardsCollectionRef = firestore.collection("cards")
+    cardsCollectionRef.onSnapshot(async snapshot => console.log(snapshot))
   }, [uploadedFiles, dispatch, id]);
 
   const {
@@ -65,19 +85,14 @@ const Upload = ({ hasCard, id }) => {
 
     setUploadedFiles(uploadedFiles.concat(currentUpload));
     // dispatch(updateCardDocuments({ id, documents: uploadedFiles }));
-    //   uploadedFiles.forEach(processUpload())
+    // uploadedFiles.forEach(processUpload);
   }
-
-  // function processUpload(uploadedFile) {
-
-  // }
 
   return (
     <Dropzone>
       {() => (
         <DropContainer {...getRootProps({ isDragActive, isDragReject })}>
           <input {...getInputProps()} />
-          {/* {console.log(match.params.cardId)} */}
           {renderDragMessage(isDragActive, isDragReject)}
         </DropContainer>
       )}
