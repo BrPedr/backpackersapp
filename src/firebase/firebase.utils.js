@@ -56,20 +56,20 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 export const createCardsDocument = async (userAuth, cardId, location) => {
   const createdAt = new Date();
+  const lastModified = new Date();
   const cardsRef = firestore.doc(`users/${userAuth}/cards/${cardId}`);
-  const snapShot = await cardsRef.get();
+  // const snapShot = await cardsRef.get();
 
   try {
     await cardsRef.set({
       createdAt,
+      lastModified,
       location,
       id: cardId,
     });
   } catch (error) {
     console.log("error creating card", error.message);
   }
-
-  return snapShot;
 
   // if (!userAuth || !cards.length) return;
 
@@ -91,12 +91,36 @@ export const createCardsDocument = async (userAuth, cardId, location) => {
   // });
 };
 
+export const updateFirestoreCardsDocuments = async (
+  userAuth,
+  cardId,
+  documents
+) => {
+  const cardsRef = firestore.doc(`users/${userAuth}/cards/${cardId}`);
+  const lastModified = new Date();
+  // const snapShot = await cardsRef.get();
+
+  try {
+    // await cardsRef.set({ documents }, { merge: true });
+    await cardsRef.update({ documents, lastModified });
+  } catch (error) {
+    console.log("error udpating card", error.message);
+  }
+
+  // return snapShot;
+};
+
 // firebase.analytics();
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
 firebase.initializeApp(firebaseConfig);
 export const firestore = firebase.firestore();
+firestore.settings({
+  cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
+});
+firestore.enablePersistence();
+
 
 export const auth = firebase.auth();
 

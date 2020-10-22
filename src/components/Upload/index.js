@@ -6,12 +6,16 @@ import { nanoid } from "@reduxjs/toolkit";
 import filesize from "filesize";
 import { useDispatch } from "react-redux";
 
-import { firestore } from "../../firebase/firebase.utils"
+import {
+  firestore,
+  updateFirestoreCardsDocuments,
+} from "../../firebase/firebase.utils";
 
 import {
   updateCardDocuments,
   selectAllCards,
 } from "../../redux/cards/cardsSlice";
+import { selectUser } from "../../redux/user/userSlice";
 
 import { DropContainer, UploadMessage } from "./styles";
 
@@ -21,6 +25,7 @@ const Upload = ({ id }) => {
   const card = cards.find((id) => id.id === match.params.cardId);
   const [uploadedFiles, setUploadedFiles] = useState(hasCard(card));
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
   function hasCard(card) {
     if (!card.documents) {
@@ -32,6 +37,7 @@ const Upload = ({ id }) => {
 
   useEffect(() => {
     dispatch(updateCardDocuments({ id, documents: uploadedFiles }));
+    updateFirestoreCardsDocuments(user.uid, id, card.documents);
   }, [uploadedFiles, dispatch, id]);
 
   const {
@@ -82,8 +88,6 @@ const Upload = ({ id }) => {
     }));
 
     setUploadedFiles(uploadedFiles.concat(currentUpload));
-    // dispatch(updateCardDocuments({ id, documents: uploadedFiles }));
-    // uploadedFiles.forEach(processUpload);
   }
 
   return (

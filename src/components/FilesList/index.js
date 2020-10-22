@@ -32,7 +32,7 @@ const FilesList = ({ card }) => {
 
             {cardFile.url && (
               <a
-                href="https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg"
+                href={cardFile.url}
                 target="_blank"
                 rel="noopener noreferrer"
               >

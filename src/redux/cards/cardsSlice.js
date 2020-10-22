@@ -15,7 +15,16 @@ const cardsSlice = createSlice({
       reducer(state, action) {
         state.cardsList.push(action.payload);
       },
-      prepare(userId, location, cardId, routes, adressess, calendar, documents) {
+      prepare(
+        userId,
+        location,
+        cardId,
+        routes,
+        adressess,
+        calendar,
+        documents,
+        lastModified
+      ) {
         return {
           payload: {
             id: cardId,
@@ -25,6 +34,7 @@ const cardsSlice = createSlice({
             adressess: "",
             calendar: "",
             documents,
+            lastModified: new Date(),
           },
         };
       },
@@ -48,6 +58,7 @@ const cardsSlice = createSlice({
       if (hasCard) {
         hasCard.id = id;
         hasCard.calendar = { fromDate: fromDate, toDate: toDate };
+        hasCard.lastModified = new Date();
         // hasCard.documents = documents;
       }
     },
@@ -57,6 +68,7 @@ const cardsSlice = createSlice({
       if (hasCard) {
         hasCard.id = id;
         hasCard.documents = documents;
+        hasCard.lastModified = new Date();
       }
     },
   },
