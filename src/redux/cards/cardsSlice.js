@@ -71,6 +71,13 @@ const cardsSlice = createSlice({
         hasCard.lastModified = new Date();
       }
     },
+    updateAllCard(state, action) {
+      const { id } = action.payload;
+      const hasCard = state.cardsList.find((card) => card.id === id);
+      if (hasCard) {
+        state.cardsList = hasCard;
+      }
+    }
   },
 });
 
@@ -80,6 +87,7 @@ export const {
   getCurrentCard,
   updateCard,
   updateCardDocuments,
+  updateAllCard,
 } = cardsSlice.actions;
 
 export const selectAllCards = (state) => state.cards.cardsList;

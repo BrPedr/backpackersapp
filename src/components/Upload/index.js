@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 
 import {
   firestore,
+  storageRef,
   updateFirestoreCardsDocuments,
 } from "../../firebase/firebase.utils";
 
@@ -37,7 +38,7 @@ const Upload = ({ id }) => {
 
   useEffect(() => {
     dispatch(updateCardDocuments({ id, documents: uploadedFiles }));
-    updateFirestoreCardsDocuments(user.uid, id, card.documents);
+    // updateFirestoreCardsDocuments(user.uid, id, card.documents);
   }, [uploadedFiles, dispatch, id]);
 
   const {
@@ -88,6 +89,44 @@ const Upload = ({ id }) => {
     }));
 
     setUploadedFiles(uploadedFiles.concat(currentUpload));
+    const uploading = () => {
+      files.map(function (file) {
+        const uploadTask = storageRef
+          .child(`${user.uid}/${card.id}/${file.name}`)
+          .put(file);
+
+        return uploadTask.on(
+          "state_changed",
+          function progress(snapshot) {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            console.log(
+              snapshot,
+              snapshot.bytesTransferred,
+              snapshot.totalBytesTransferred,
+              snapshot.totalBytes
+            );
+          },
+          function (error) {
+            console.log(error);
+          },
+          function () {
+            uploadTask.snapshot.ref
+              .getDownloadURL()
+              .then(function (downloadURL) {
+                console.log("File available at", downloadURL);
+              });
+          }
+        );
+      });
+    };
+    // uploading();
+    // const store = storageRef.child(`${user.uid}/${card.id}/file.name`);
+    // const uploadTask = files.map((file) => store.put(file));
+    // uploadTask.on('state_changed', function progress (snapshot) {
+    // console.log(snapshot.totalBytesTransferred)
+    // })
   }
 
   return (

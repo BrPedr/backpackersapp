@@ -15,7 +15,12 @@ import {
 } from "./firebase/firebase.utils";
 
 import { selectUser } from "./redux/user/userSlice";
-import { selectAllCards, createCardsList } from "./redux/cards/cardsSlice";
+import {
+  selectAllCards,
+  createCardsList,
+  updateCard,
+  updateAllCard,
+} from "./redux/cards/cardsSlice";
 
 import "./components/ModalRoot/index";
 
@@ -41,43 +46,72 @@ function App() {
     //   .get()
     //   .then((doc) => doc.data()).then((data) => console.log(data))
 
-    // const print = [];
-    // const testing = async () => {
-    //   const getSnapshot = await firestore
-    //     .collection("users")
-    //     .doc(`${user.uid}`)
-    //     .collection("cards")
-    //     .get()
-    //     .then(function (querySnapshot) {
-    //       querySnapshot.forEach(function (doc) {
-    //         return print.push(doc.data());
-    //       });
-    //     });
+    if (!!user) {
+      const cardsSnapshot = [];
+      const getCardsCollection = async () => {
+        const getCardsSnapshot = await firestore
+          .collection("users")
+          .doc(`${user.uid}`)
+          .collection("cards")
+          .get({ source: "cache" })
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+var source = doc.metadata.fromCache ? "Local" : "Server";
+console.log(" data: ", source);
+              return cardsSnapshot.push(doc.data());
+            });
+          });
+        return getCardsSnapshot;
+      };
 
-    //   return getSnapshot;
-    // };
+      const createAndUpdateCard = async () => {
+        await getCardsCollection();
+        if (!cards.length) {
+          cardsSnapshot.forEach((cardSnapshot) => {
+              console.log(cardsSnapshot.lastModified);
+            dispatch(
+              createCardsList(user.uid, cardSnapshot.location, cardSnapshot.id)
+            );
+          });
+        }
 
-    // const testCreateCard = async () => {
-    //   await testing();
-    //   dispatch(createCardsList(user.uid, print[0].location, print[0].id));
-    // };
-    // testCreateCard();
-    // console.log(print);
+        // return cardsSnapshot.forEach(cardSnapshot => {
+        //   const hasCard = cards.find((card) => card.id === cardSnapshot.id);
 
-    // cardsRef
-    //   .get()
-    //   .then(function (doc) {
-    //     if (doc.exists) {
-    //       console.log("Document data:", doc.data());
-    //     } else {
-    //       // doc.data() will be undefined in this case
-    //       console.log("No such document!");
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log("Error getting document:", error);
-    //   });
-  }, [user]);
+        //   if (hasCard.lastModified.toString() !== cardSnapshot.lastModified) {
+        //     dispatch(updateAllCard(cardSnapshot.id, cardSnapshot));
+        //   }
+        // })
+      };
+
+      // const createAndUpdateCard = async () => {
+      //   await getCardsCollection();
+      //   dispatch(
+      //     createCardsList(
+      //       user.uid,
+      //       cardsSnapshot[0].location,
+      //       cardsSnapshot[0].id
+      //     )
+      //   );
+      // };
+      createAndUpdateCard();
+      console.log(cardsSnapshot);
+
+      // cardsRef
+      //   .get()
+      //   .then(function (doc) {
+      //     if (doc.exists) {
+      //       console.log("Document data:", doc.data());
+      //     } else {
+      //       // doc.data() will be undefined in this case
+      //       console.log("No such document!");
+      //     }
+      //   })
+      //   .catch(function (error) {
+      //     console.log("Error getting document:", error);
+      //   });
+    }
+  }, []);
 
   // useEffect(() => {
   //   if (!cards) return;
